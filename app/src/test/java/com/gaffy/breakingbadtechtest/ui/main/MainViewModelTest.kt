@@ -1,9 +1,9 @@
-package com.gaffy.brackingbadtechtest.ui.main
+package com.gaffy.breakingbadtechtest.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
-import com.gaffy.brackingbadtechtest.data.repository.BreakingBadRepository
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.data.repository.BreakingBadRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -52,6 +52,55 @@ class MainViewModelTest {
     }
 
     @Test
+    fun `when repository returns non empty list of data, state should be set to success with list of characters filtered by season if season is non zero`() {
+        //When
+        val data = listOf(BreakingBadChar(name = "Demo", appearance = listOf(1)),
+            BreakingBadChar(name = "Demo2", appearance = listOf(2)))
+        val expectedData = listOf(BreakingBadChar(name = "Demo2", appearance = listOf(2)))
+        every { mockRepository.getBreakingBadCharacters() } returns Single.just(data)
+
+        //Then
+        subject.getBreakingBadChars(season = 2)
+
+        //Verify
+        verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
+        verify { observer.onChanged(MainViewModel.ViewState.Success(expectedData)) }
+    }
+
+    @Test
+    fun `when repository returns non empty list of data, state should be set to success with list of characters filtered by characterName if characterName is non empty`() {
+        //When
+        val data = listOf(BreakingBadChar(name = "Demo", appearance = listOf(1)),
+            BreakingBadChar(name = "Demo2", appearance = listOf(2)))
+        val expectedData = listOf(BreakingBadChar(name = "Demo2", appearance = listOf(2)))
+        every { mockRepository.getBreakingBadCharacters() } returns Single.just(data)
+
+        //Then
+        subject.getBreakingBadChars(characterName = "Demo2")
+
+        //Verify
+        verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
+        verify { observer.onChanged(MainViewModel.ViewState.Success(expectedData)) }
+    }
+
+    @Test
+    fun `when repository returns non empty list of data, state should be set to success with list of characters filtered by characterName if characterName is non empty and then by Season number if season is non zero`() {
+        //When
+        val data = listOf(BreakingBadChar(name = "Demo", appearance = listOf(1)),
+            BreakingBadChar(name = "Demo2", appearance = listOf(2)),
+            BreakingBadChar(name = "Demo32", appearance = listOf(2)),
+            BreakingBadChar(name = "Demo23", appearance = listOf(3)))
+        val expectedData = listOf(BreakingBadChar(name = "Demo2", appearance = listOf(2)))
+        every { mockRepository.getBreakingBadCharacters() } returns Single.just(data)
+
+        //Then
+        subject.getBreakingBadChars(characterName = "Demo2", season = 2)
+
+        //Verify
+        verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
+        verify { observer.onChanged(MainViewModel.ViewState.Success(expectedData)) }
+    }
+    @Test
     fun `when repository returns empty list of data, state should be set to error with List is Empty message`() {
         //When
         val data = emptyList<BreakingBadChar>()
@@ -62,7 +111,7 @@ class MainViewModelTest {
 
         //Verify
         verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
-        verify { observer.onChanged(MainViewModel.ViewState.Error("List is Empty")) }
+        verify { observer.onChanged(MainViewModel.ViewState.Error("No Result Found")) }
     }
     @Test
     fun `when repository returns failure with localized message, state should be set to error with localized message`() {

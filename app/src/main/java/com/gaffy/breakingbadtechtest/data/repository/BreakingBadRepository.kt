@@ -1,6 +1,6 @@
-package com.gaffy.brackingbadtechtest.data.repository
+package com.gaffy.breakingbadtechtest.data.repository
 
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
 import io.reactivex.rxjava3.core.Single
 
 interface BreakingBadRepository {

@@ -1,6 +1,6 @@
-package com.gaffy.brackingbadtechtest.data.repository
+package com.gaffy.breakingbadtechtest.data.repository
 
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK

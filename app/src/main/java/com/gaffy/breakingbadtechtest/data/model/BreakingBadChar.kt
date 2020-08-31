@@ -1,4 +1,4 @@
-package com.gaffy.brackingbadtechtest.data.model
+package com.gaffy.breakingbadtechtest.data.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

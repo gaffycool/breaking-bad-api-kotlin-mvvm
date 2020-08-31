@@ -1,4 +1,4 @@
-package com.gaffy.brackingbadtechtest
+package com.gaffy.breakingbadtechtest
 
 import org.junit.Test
 

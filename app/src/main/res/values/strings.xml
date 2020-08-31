@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BrackingBad TechTest</string>
+    <string name="app_name">BreakingBad TechTest</string>
     <string name="search">Search</string>
     <string name="retry">Retry</string>
     <string name="name_with_value">Name: %1$s</string>

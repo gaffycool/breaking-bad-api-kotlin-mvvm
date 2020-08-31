@@ -1,10 +1,10 @@
-package com.gaffy.brackingbadtechtest
+package com.gaffy.breakingbadtechtest
 
 import android.app.Application
-import com.gaffy.brackingbadtechtest.data.repository.BreakingBadRepository
-import com.gaffy.brackingbadtechtest.data.repository.RemoteBreakingBadRepository
-import com.gaffy.brackingbadtechtest.data.repository.WebApiService
-import com.gaffy.brackingbadtechtest.ui.main.MainViewModel
+import com.gaffy.breakingbadtechtest.data.repository.BreakingBadRepository
+import com.gaffy.breakingbadtechtest.data.repository.RemoteBreakingBadRepository
+import com.gaffy.breakingbadtechtest.data.repository.WebApiService
+import com.gaffy.breakingbadtechtest.ui.main.MainViewModel
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

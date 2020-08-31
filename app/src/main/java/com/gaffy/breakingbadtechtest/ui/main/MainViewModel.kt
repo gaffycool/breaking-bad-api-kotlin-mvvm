@@ -1,28 +1,28 @@
-package com.gaffy.brackingbadtechtest.ui.main
+package com.gaffy.breakingbadtechtest.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
-import com.gaffy.brackingbadtechtest.data.repository.BreakingBadRepository
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.data.repository.BreakingBadRepository
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class MainViewModel(private val breakingBadRepository: BreakingBadRepository) : ViewModel() {
     private val disposable = CompositeDisposable()
     private val _state = MutableLiveData<ViewState>()
+    var allCharacters: List<BreakingBadChar>? = null
     val state: LiveData<ViewState>
         get() = _state
 
-    fun getBreakingBadChars() {
+    fun getBreakingBadChars(characterName: String = "", season: Int = 0) {
         _state.postValue(ViewState.InProgress)
-        disposable.add(
+        allCharacters?.let { result ->
+            filterResult(result, characterName, season)
+        } ?: disposable.add(
             breakingBadRepository.getBreakingBadCharacters()
                 .subscribe({ response ->
-                    if (response.isEmpty()) {
-                        _state.postValue(ViewState.Error("List is Empty"))
-                    } else {
-                        _state.postValue(ViewState.Success(response))
-                    }
+                    allCharacters = response
+                    filterResult(response, characterName, season)
                 }, { throwable ->
                     _state.postValue(
                         ViewState.Error(
@@ -31,6 +31,19 @@ class MainViewModel(private val breakingBadRepository: BreakingBadRepository) : 
                     )
                 })
         )
+    }
+
+    private fun filterResult(response: List<BreakingBadChar>, characterName: String, season: Int) {
+        val result = response.filter { character ->
+            characterName.isEmpty() ||
+                    character.name.toLowerCase().startsWith(characterName.toLowerCase())
+        }.filter { character -> season == 0 || character.appearance.contains(season) }
+
+        if (result.isEmpty()) {
+            _state.postValue(ViewState.Error("No Result Found"))
+        } else {
+            _state.postValue(ViewState.Success(result))
+        }
     }
 
     sealed class ViewState {
@@ -43,4 +56,5 @@ class MainViewModel(private val breakingBadRepository: BreakingBadRepository) : 
         disposable.dispose()
         super.onCleared()
     }
+
 }

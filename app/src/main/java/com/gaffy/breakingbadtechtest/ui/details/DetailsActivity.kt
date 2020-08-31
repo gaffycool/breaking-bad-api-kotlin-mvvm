@@ -1,15 +1,13 @@
-package com.gaffy.brackingbadtechtest.ui.details
+package com.gaffy.breakingbadtechtest.ui.details
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.gaffy.brackingbadtechtest.R
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.R
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
 import kotlinx.android.synthetic.main.activity_details.*
-import kotlinx.android.synthetic.main.layout_item.view.*
 
 class DetailsActivity : AppCompatActivity() {
     companion object {

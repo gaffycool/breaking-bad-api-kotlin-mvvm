@@ -1,12 +1,12 @@
-package com.gaffy.brackingbadtechtest.ui.main.adapter
+package com.gaffy.breakingbadtechtest.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gaffy.brackingbadtechtest.R
-import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.breakingbadtechtest.R
+import com.gaffy.breakingbadtechtest.data.model.BreakingBadChar
 import kotlinx.android.synthetic.main.layout_item.view.*
 
 class CharacterAdapter(
