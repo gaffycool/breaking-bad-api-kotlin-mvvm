@@ -52,7 +52,20 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `when repository returns failure, state should be set to error with error message`() {
+    fun `when repository returns empty list of data, state should be set to error with List is Empty message`() {
+        //When
+        val data = emptyList<BreakingBadChar>()
+        every { mockRepository.getBreakingBadCharacters() } returns Single.just(data)
+
+        //Then
+        subject.getBreakingBadChars()
+
+        //Verify
+        verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
+        verify { observer.onChanged(MainViewModel.ViewState.Error("List is Empty")) }
+    }
+    @Test
+    fun `when repository returns failure with localized message, state should be set to error with localized message`() {
         //When
         val message = "Error Message"
         val data = RuntimeException(message)
@@ -64,5 +77,19 @@ class MainViewModelTest {
         //Verify
         verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
         verify { observer.onChanged(MainViewModel.ViewState.Error(message)) }
+    }
+
+    @Test
+    fun `when repository returns failure with no message, state should be set to error with Unknown Error message`() {
+        //When
+        val data = RuntimeException()
+        every { mockRepository.getBreakingBadCharacters() } returns Single.error(data)
+
+        //Then
+        subject.getBreakingBadChars()
+
+        //Verify
+        verify { observer.onChanged(MainViewModel.ViewState.InProgress) }
+        verify { observer.onChanged(MainViewModel.ViewState.Error("Unknown Error")) }
     }
 }

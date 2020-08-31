@@ -18,11 +18,15 @@ class MainViewModel(private val breakingBadRepository: BreakingBadRepository) : 
         disposable.add(
             breakingBadRepository.getBreakingBadCharacters()
                 .subscribe({ response ->
-                    _state.postValue(ViewState.Success(response))
+                    if (response.isEmpty()) {
+                        _state.postValue(ViewState.Error("List is Empty"))
+                    } else {
+                        _state.postValue(ViewState.Success(response))
+                    }
                 }, { throwable ->
                     _state.postValue(
                         ViewState.Error(
-                            throwable.localizedMessage
+                            throwable.localizedMessage ?: "Unknown Error"
                         )
                     )
                 })
