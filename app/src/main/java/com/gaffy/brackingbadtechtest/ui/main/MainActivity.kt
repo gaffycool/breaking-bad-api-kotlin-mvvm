@@ -7,13 +7,17 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gaffy.brackingbadtechtest.R
 import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
+import com.gaffy.brackingbadtechtest.ui.details.DetailsActivity
 import com.gaffy.brackingbadtechtest.ui.main.adapter.CharacterAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
-    private val adapter = CharacterAdapter(mutableListOf(), {})
+    private val adapter = CharacterAdapter(mutableListOf()) { character ->
+        startActivity(DetailsActivity.getIntent(this@MainActivity, character))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

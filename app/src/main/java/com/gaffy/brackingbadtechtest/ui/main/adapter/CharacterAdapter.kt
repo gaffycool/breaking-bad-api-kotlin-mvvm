@@ -10,7 +10,7 @@ import com.gaffy.brackingbadtechtest.data.model.BreakingBadChar
 import kotlinx.android.synthetic.main.layout_item.view.*
 
 class CharacterAdapter(
-    val characters: MutableList<BreakingBadChar>,
+    private val characters: MutableList<BreakingBadChar>,
     private val clickListener: (BreakingBadChar) -> Unit
 ) : RecyclerView.Adapter<CharacterAdapter.ViewHolder>() {
 

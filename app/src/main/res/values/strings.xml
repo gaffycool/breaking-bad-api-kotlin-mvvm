@@ -2,4 +2,9 @@
     <string name="app_name">BrackingBad TechTest</string>
     <string name="search">Search</string>
     <string name="retry">Retry</string>
+    <string name="name_with_value">Name: %1$s</string>
+    <string name="occupation_with_value">Occupation: %1$s</string>
+    <string name="status_with_value">Status: %1$s</string>
+    <string name="nickname_with_value">NickName: %1$s</string>
+    <string name="season_appearance_with_value">Season Appearance: %1$s</string>
 </resources>
